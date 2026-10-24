@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUNA - Астрологи, Руна & Алганы хээний шинжилгээ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #031e16; color: #e2f1eb; font-family: sans-serif; }
+        .gold-border { border: 1px solid #d4af37; }
+        .gold-btn { background: linear-gradient(135deg, #d4af37, #f3e5ab); color: #031e16; font-weight: bold; }
+        .card-bg { background-color: #082d22; }
+    </style>
+</head>
+<body class="p-4 flex flex-col items-center min-h-screen justify-center">
+
+    <div class="max-w-md w-full card-bg p-6 rounded-2xl gold-border shadow-2xl space-y-6">
+        
+        <!-- Header -->
+        <div class="text-center">
+            <h1 class="text-3xl font-extrabold text-yellow-400 tracking-wider">ᚱᚢᚾᚨ RUNA</h1>
+            <p class="text-xs text-emerald-300 mt-1">Руна тэмдэгт, Төрсөн тоо & Алганы хээний цогц шинжилгээ</p>
+        </div>
+
+        <!-- Form Steps -->
+        <div id="quiz-container" class="space-y-4">
+            
+            <!-- Step 1: Name -->
+            <div>
+                <label class="block text-sm text-emerald-200 mb-1">Таны нэр кодоор хадгалагдана:</label>
+                <input type="text" id="name" placeholder="Нэрээ оруулна уу" class="w-full p-3 rounded-lg bg-emerald-950 border border-emerald-700 text-white focus:outline-none focus:border-yellow-400">
+            </div>
+
+            <!-- Step 2: Birth Date -->
+            <div>
+                <label class="block text-sm text-emerald-200 mb-1">Төрсөн он, сар, өдөр:</label>
+                <input type="date" id="dob" class="w-full p-3 rounded-lg bg-emerald-950 border border-emerald-700 text-white focus:outline-none focus:border-yellow-400">
+            </div>
+
+            <!-- Step 3: Money Loss Question -->
+            <div>
+                <label class="block text-sm text-emerald-200 mb-1">Мөнгөний алдагдал & Санхүүгийн блокинг:</label>
+                <select id="money_issue" class="w-full p-3 rounded-lg bg-emerald-950 border border-emerald-700 text-white">
+                    <option value="1">Орлого ордог ч шууд урсаад гарчихдаг</option>
+                    <option value="2">Гэнэтийн зарлага, өр авлага их үүсдэг</option>
+                    <option value="3">Шинэ боломж, орлогын үүд нээгдэхгүй байна</option>
+                </select>
+            </div>
+
+            <!-- Step 4: Palmistry Image Upload -->
+            <div>
+                <label class="block text-sm text-emerald-200 mb-1">Алганы хээний зургаа оруулах:</label>
+                <input type="file" accept="image/*" class="w-full text-xs text-emerald-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-yellow-500 file:text-emerald-950 hover:file:bg-yellow-400">
+            </div>
+
+            <!-- Step 5: Email -->
+            <div>
+                <label class="block text-sm text-emerald-200 mb-1">Шинжилгээ авах И-мэйл хаяг:</label>
+                <input type="email" id="email" placeholder="email@example.com" class="w-full p-3 rounded-lg bg-emerald-950 border border-emerald-700 text-white">
+            </div>
+
+            <!-- Submit Button -->
+            <button onclick="pay()" class="w-full py-4 rounded-xl gold-btn text-lg mt-4 shadow-lg hover:brightness-110 transition">
+                Уншилт бэлдэх & Төлбөр төлөх (9,900₮)
+            </button>
+        </div>
+
+        <!-- QPay Modal (Hidden by default) -->
+        <div id="payment-modal" class="hidden text-center space-y-4">
+            <h2 class="text-xl font-bold text-yellow-400">QPay Төлбөр төлөх</h2>
+            <p class="text-xs text-emerald-200">Доорх QR кодыг уншуулах эсвэл банкны апп-аараа шилжүүлнэ үү.</p>
+            <div class="bg-white p-4 rounded-xl inline-block">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=RUNA_QPAY_INVOICE" alt="QPay QR">
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs font-semibold mt-2">
+                <button class="bg-green-700 p-2 rounded text-white">Khan Bank</button>
+                <button class="bg-blue-600 p-2 rounded text-white">Golomt Bank</button>
+                <button class="bg-red-600 p-2 rounded text-white">TDB Bank</button>
+                <button class="bg-yellow-600 p-2 rounded text-white">SocialPay</button>
+            </div>
+            <p class="text-xs text-emerald-400 mt-2">Төлбөр төлөгдсөний дараа уншилт таны и-мэйл рүү болон дэлгэц дээр нээгдэнэ.</p>
+        </div>
+
+    </div>
+
+    <script>
+        function pay() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('payment-modal').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

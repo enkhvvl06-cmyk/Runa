@@ -5,80 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RUNA - Астрологи, Руна & Алганы хээний шинжилгээ</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #031e16; color: #e2f1eb; font-family: sans-serif; }
-        .gold-border { border: 1px solid #d4af37; }
-        .gold-btn { background: linear-gradient(135deg, #d4af37, #f3e5ab); color: #031e16; font-weight: bold; }
-        .card-bg { background-color: #082d22; }
+        body { 
+            background: radial-gradient(circle at center, #0f231c 0%, #050b09 100%);
+            color: #f1f5f9; 
+            font-family: 'Montserrat', sans-serif; 
+        }
+        .cinzel { font-family: 'Cinzel', serif; }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #ffe89c 0%, #d4af37 50%, #aa7c11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border { border: 1px solid rgba(212, 175, 55, 0.4); }
+        .gold-btn { 
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #996515 100%);
+            color: #03120d; 
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .gold-btn:hover {
+            background: linear-gradient(135deg, #ffffff 0%, #e6ca65 50%, #b8860b 100%);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+        .glass-card { 
+            background: rgba(12, 32, 25, 0.8); 
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
     </style>
 </head>
 <body class="p-4 flex flex-col items-center min-h-screen justify-center">
 
-    <div class="max-w-md w-full card-bg p-6 rounded-2xl gold-border shadow-2xl space-y-6">
+    <div class="max-w-md w-full glass-card p-6 sm:p-8 rounded-3xl shadow-2xl space-y-6 relative overflow-hidden">
         
         <!-- Header -->
-        <div class="text-center">
-            <h1 class="text-3xl font-extrabold text-yellow-400 tracking-wider">ᚱᚢᚾᚨ RUNA</h1>
-            <p class="text-xs text-emerald-300 mt-1">Руна тэмдэгт, Төрсөн тоо & Алганы хээний цогц шинжилгээ</p>
+        <div class="text-center space-y-2">
+            <div class="text-2xl tracking-widest text-yellow-300">ᚱ ᚢ ᚾ ᚨ</div>
+            <h1 class="text-4xl cinzel font-bold gold-gradient-text">RUNA</h1>
+            <p class="text-xs text-amber-200/80 tracking-wide uppercase">Зөрчил ба хувь тавилангийн нарийн шинжилгээ</p>
         </div>
+
+        <hr class="border-amber-500/20">
 
         <!-- Form Steps -->
         <div id="quiz-container" class="space-y-4">
             
-            <!-- Step 1: Name -->
             <div>
-                <label class="block text-sm text-emerald-200 mb-1">Таны нэр кодоор хадгалагдана:</label>
-                <input type="text" id="name" placeholder="Нэрээ оруулна уу" class="w-full p-3 rounded-lg bg-emerald-950 border border-emerald-700 text-white focus:outline-none focus:border-yellow-400">
+                <label class="block text-xs uppercase tracking-wider text-amber-200 mb-1.5 font-semibold">Өөрийн нэр:</label>
+                <input type="text" id="name" placeholder="Нэрээ оруулна уу" class="w-full p-3.5 rounded-xl bg-black/40 gold-border text-white placeholder-emerald-200/30 focus:outline-none focus:border-yellow-400 text-sm">
             </div>
 
-            <!-- Step 2: Birth Date -->
             <div>
-                <label class="block text-sm text-emerald-200 mb-1">Төрсөн он, сар, өдөр:</label>
-                <input type="date" id="dob" class="w-full p-3 rounded-lg bg-emerald-950 border border-emerald-700 text-white focus:outline-none focus:border-yellow-400">
+                <label class="block text-xs uppercase tracking-wider text-amber-200 mb-1.5 font-semibold">Төрсөн он, сар, өдөр:</label>
+                <input type="date" id="dob" class="w-full p-3.5 rounded-xl bg-black/40 gold-border text-white focus:outline-none focus:border-yellow-400 text-sm">
             </div>
 
-            <!-- Step 3: Money Loss Question -->
             <div>
-                <label class="block text-sm text-emerald-200 mb-1">Мөнгөний алдагдал & Санхүүгийн блокинг:</label>
-                <select id="money_issue" class="w-full p-3 rounded-lg bg-emerald-950 border border-emerald-700 text-white">
-                    <option value="1">Орлого ордог ч шууд урсаад гарчихдаг</option>
-                    <option value="2">Гэнэтийн зарлага, өр авлага их үүсдэг</option>
-                    <option value="3">Шинэ боломж, орлогын үүд нээгдэхгүй байна</option>
+                <label class="block text-xs uppercase tracking-wider text-amber-200 mb-1.5 font-semibold">Санхүүгийн гол саад / Мөнгөний алдагдал:</label>
+                <select id="money_issue" class="w-full p-3.5 rounded-xl bg-black/40 gold-border text-amber-100 text-sm focus:outline-none">
+                    <option value="1">💸 Орлого ордог ч шууд урсаад гарчихдаг</option>
+                    <option value="2">⚠️ Гэнэтийн зарлага, өр авлага их үүсдэг</option>
+                    <option value="3">🔒 Шинэ боломж, орлогын үүд нээгдэхгүй байна</option>
                 </select>
             </div>
 
-            <!-- Step 4: Palmistry Image Upload -->
             <div>
-                <label class="block text-sm text-emerald-200 mb-1">Алганы хээний зургаа оруулах:</label>
-                <input type="file" accept="image/*" class="w-full text-xs text-emerald-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-yellow-500 file:text-emerald-950 hover:file:bg-yellow-400">
+                <label class="block text-xs uppercase tracking-wider text-amber-200 mb-1.5 font-semibold">Алганы хээний зураг (Баруун эсвэл зүүн алга):</label>
+                <div class="p-3 bg-black/30 rounded-xl gold-border text-center">
+                    <input type="file" accept="image/*" class="w-full text-xs text-amber-200/80 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-amber-400 file:text-emerald-950 file:font-bold hover:file:bg-yellow-300 transition">
+                </div>
             </div>
 
-            <!-- Step 5: Email -->
             <div>
-                <label class="block text-sm text-emerald-200 mb-1">Шинжилгээ авах И-мэйл хаяг:</label>
-                <input type="email" id="email" placeholder="email@example.com" class="w-full p-3 rounded-lg bg-emerald-950 border border-emerald-700 text-white">
+                <label class="block text-xs uppercase tracking-wider text-amber-200 mb-1.5 font-semibold">Шинжилгээ хүлээн авах И-мэйл:</label>
+                <input type="email" id="email" placeholder="email@example.com" class="w-full p-3.5 rounded-xl bg-black/40 gold-border text-white placeholder-emerald-200/30 focus:outline-none focus:border-yellow-400 text-sm">
             </div>
 
-            <!-- Submit Button -->
-            <button onclick="pay()" class="w-full py-4 rounded-xl gold-btn text-lg mt-4 shadow-lg hover:brightness-110 transition">
-                Уншилт бэлдэх & Төлбөр төлөх (9,900₮)
+            <button onclick="pay()" class="w-full py-4 rounded-xl gold-btn text-base mt-2 transition transform active:scale-95 tracking-wider uppercase cinzel">
+                Уншилт Бэлтгэх (9,900₮)
             </button>
         </div>
 
-        <!-- QPay Modal (Hidden by default) -->
-        <div id="payment-modal" class="hidden text-center space-y-4">
-            <h2 class="text-xl font-bold text-yellow-400">QPay Төлбөр төлөх</h2>
-            <p class="text-xs text-emerald-200">Доорх QR кодыг уншуулах эсвэл банкны апп-аараа шилжүүлнэ үү.</p>
-            <div class="bg-white p-4 rounded-xl inline-block">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=RUNA_QPAY_INVOICE" alt="QPay QR">
+        <!-- QPay Modal -->
+        <div id="payment-modal" class="hidden text-center space-y-5 py-2">
+            <h2 class="text-2xl cinzel font-bold gold-gradient-text">QPay Төлбөр Төлөх</h2>
+            <p class="text-xs text-amber-100/80">QR кодыг банкны апп-аараа уншуулж төлбөрөө баталгаажуулна уу.</p>
+            
+            <div class="bg-white p-3 rounded-2xl inline-block shadow-lg border-2 border-yellow-400">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=RUNA_QPAY_INVOICE" alt="QPay QR" class="rounded-lg">
             </div>
-            <div class="grid grid-cols-2 gap-2 text-xs font-semibold mt-2">
-                <button class="bg-green-700 p-2 rounded text-white">Khan Bank</button>
-                <button class="bg-blue-600 p-2 rounded text-white">Golomt Bank</button>
-                <button class="bg-red-600 p-2 rounded text-white">TDB Bank</button>
-                <button class="bg-yellow-600 p-2 rounded text-white">SocialPay</button>
+
+            <div class="grid grid-cols-2 gap-2 text-xs font-bold pt-2">
+                <button class="bg-blue-600/90 hover:bg-blue-600 p-3 rounded-xl text-white shadow">Хаан Банк</button>
+                <button class="bg-red-600/90 hover:bg-red-600 p-3 rounded-xl text-white shadow">Голомт Банк</button>
+                <button class="bg-emerald-600/90 hover:bg-emerald-600 p-3 rounded-xl text-white shadow">ТДБ</button>
+                <button class="bg-amber-600/90 hover:bg-amber-600 p-3 rounded-xl text-white shadow">SocialPay</button>
             </div>
-            <p class="text-xs text-emerald-400 mt-2">Төлбөр төлөгдсөний дараа уншилт таны и-мэйл рүү болон дэлгэц дээр нээгдэнэ.</p>
+
+            <p class="text-[11px] text-amber-300/70">Төлбөр төлөгдсний дараа AI уншилт 30 секундийн дотор бэлэн болно.</p>
         </div>
 
     </div>

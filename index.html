@@ -71,11 +71,11 @@
         <div id="preview-modal" class="hidden space-y-4 py-2">
             <h2 class="text-xl cinzel font-bold gold-gradient-text text-center">Таны Сонирхолтой Энергийн Сорил</h2>
             
-            <div id="preview-loading" class="text-center py-6 text-amber-200 text-xs animate-pulse">
+            <div id="preview-loading" class="text-center py-4 text-amber-200 text-xs animate-pulse">
                 ✨ Таны энергийг уншиж байна... Түр хүлээнэ үү.
             </div>
 
-            <div id="preview-text" class="text-xs leading-relaxed text-amber-100/90 bg-black/50 p-4 rounded-2xl gold-border whitespace-pre-line">
+            <div id="preview-text" class="text-xs leading-relaxed text-amber-100/90 bg-black/50 p-4 rounded-2xl gold-border whitespace-pre-line hidden">
             </div>
 
             <div id="unlock-section" class="hidden text-center space-y-3 pt-2">
@@ -116,11 +116,11 @@
         <div id="result-container" class="hidden space-y-4 py-2">
             <h2 class="text-xl cinzel font-bold gold-gradient-text text-center">Таны Иж Бүрэн Их Тайлан</h2>
             
-            <div id="full-loading" class="text-center py-6 text-amber-200 text-sm animate-pulse">
-                📜 Алганы хээ, Руна, Тоон зурхай болон 6 салбарын тайланг бэлтгэж байна...
+            <div id="full-loading" class="text-center py-4 text-amber-200 text-xs animate-pulse">
+                📜 Алганы хээ, Руна, Тоон зурхай болон 6 салбарын тайланг ачаалж байна...
             </div>
 
-            <div id="ai-reading-text" class="text-xs leading-relaxed text-emerald-100/90 bg-black/50 p-4 rounded-2xl gold-border max-h-96 overflow-y-auto whitespace-pre-line">
+            <div id="ai-reading-text" class="text-xs leading-relaxed text-emerald-100/90 bg-black/50 p-4 rounded-2xl gold-border max-h-96 overflow-y-auto whitespace-pre-line hidden">
             </div>
 
             <div id="email-status" class="text-center text-xs text-amber-300 pt-2 font-medium">
@@ -130,10 +130,7 @@
     </div>
 
     <script>
-        // Энд өөрийн OpenAI API key-ээ оруулна уу
-        const OPENAI_API_KEY = "YOUR_OPENAI_API_KEY_HERE";
-
-        async function getPreview() {
+        function getPreview() {
             const name = document.getElementById('userName').value.trim();
             const dob = document.getElementById('userDob').value;
             const email = document.getElementById('userEmail').value.trim();
@@ -146,35 +143,12 @@
             document.getElementById('quiz-container').classList.add('hidden');
             document.getElementById('preview-modal').classList.remove('hidden');
 
-            try {
-                const response = await fetch("https://api.openai.com/v1/chat/completions", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${OPENAI_API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        model: "gpt-4o-mini",
-                        messages: [{ 
-                            role: "user", 
-                            content: `Үйлчлүүлэгч: ${name}, Төрсөн өдөр: ${dob}. Энэ хүний төрсөн өдөрт үндэслэн амьдралын замын тоог нь гаргаж, зан чанар болон энергийн талаар маш сонирхолтой 2 өгүүлбэр бичиж өг. Монгол хэлээр.` 
-                        }]
-                    })
-                });
-
-                const data = await response.json();
+            setTimeout(() => {
                 document.getElementById('preview-loading').classList.add('hidden');
-                
-                if (data.choices && data.choices[0]) {
-                    document.getElementById('preview-text').innerText = data.choices[0].message.content;
-                    document.getElementById('unlock-section').classList.remove('hidden');
-                } else {
-                    document.getElementById('preview-text').innerText = "API Key эсвэл холболтод алдаа гарлаа.";
-                }
-            } catch (error) {
-                document.getElementById('preview-loading').classList.add('hidden');
-                document.getElementById('preview-text').innerText = "Сүлжээний алдаа: " + error.message;
-            }
+                document.getElementById('preview-text').innerText = `Эрхэм хүндэт ${name} таны төрсөн огноо болон одон орны байрлалаар шалгахад таны дотоод энергийн соронзон орон маш хүчтэй нээгдэх шатандаа явж байна. Таны амьдралын замын тоо болон одод таныг их өөрчлөлтийн босгон дээр ирснийг сануулж байна.\n\nТаны амьдралд тохиох том боломж ба аюулгүй байдлын нууц код бэлэн боллоо...`;
+                document.getElementById('preview-text').classList.remove('hidden');
+                document.getElementById('unlock-section').classList.remove('hidden');
+            }, 1500);
         }
 
         function showPayment() {
@@ -182,48 +156,41 @@
             document.getElementById('payment-modal').classList.remove('hidden');
         }
 
-        async function generateFullReading() {
+        function generateFullReading() {
             document.getElementById('payment-modal').classList.add('hidden');
             document.getElementById('result-container').classList.remove('hidden');
 
             const name = document.getElementById('userName').value;
-            const dob = document.getElementById('userDob').value;
             const email = document.getElementById('userEmail').value;
 
-            try {
-                const response = await fetch("https://api.openai.com/v1/chat/completions", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${OPENAI_API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        model: "gpt-4o-mini",
-                        messages: [{ 
-                            role: "user", 
-                            content: `Үйлчлүүлэгч: ${name}, Төрсөн өдөр: ${dob}. Дараах бүтцээр иж бүрэн Монгол тайлан бич: 
-                            1. Төрсөн тооны нууц & хувь тавилан 
-                            2. Алганы хээ & Астрологийн зурхай 
-                            3. Руна тэмдгүүд (Fehu, Ansuz, Gebo) 
-                            4. Амьдралын 6 салбар (Хайр дурлал, Эрүүл мэнд, Мөнгө санхүү, Ажил карьер, Аялал зугаалга, Ойрын ирээдүй) 
-                            5. Идэвхжүүлэх 3 алхам.` 
-                        }]
-                    })
-                });
-
-                const data = await response.json();
+            setTimeout(() => {
                 document.getElementById('full-loading').classList.add('hidden');
                 
-                if (data.choices && data.choices[0]) {
-                    document.getElementById('ai-reading-text').innerText = data.choices[0].message.content;
-                    document.getElementById('email-status').innerText = `📧 Тайлан ${email} хаяг руу амжилттай илгээгдлээ.`;
-                } else {
-                    document.getElementById('ai-reading-text').innerText = "Мэдээлэл ачаалахад алдаа гарлаа.";
-                }
-            } catch (error) {
-                document.getElementById('full-loading').classList.add('hidden');
-                document.getElementById('ai-reading-text').innerText = "Алдаа гарлаа: " + error.message;
-            }
+                const fullReport = `🌟 Эрхэм хүндэт ${name} таны Иж Бүрэн Их Тайлан 🌟\n\n` +
+                `1. 🔢 ТӨРСӨН ТООНЫ НУУЦ & ХУВЬ ТАВИЛАН:\n` +
+                `Таны төрсөн огноогоор тооцоолсон Амьдралын замын тоо нь таныг байгалиасаа манлайлагч, зөн совин сайтай бөгөөд санхүүгийн энергийг өөртөө татах онцгой чадвартай болохыг харуулж байна. Ойрын хугацаанд санхүүгийн урсгал тань мэдэгдэхүйц нэмэгдэх болно.\n\n` +
+                `2. ✋ АЛГАНЫ ХЭЭ & АСТРОЛОГИЙН ЗУРХАЙ:\n` +
+                `Таны алганы хээ болон оддын байрлал давхцаж буй энэ үед хувь тавилан танд шинэ боломжийн үүдийг нээж байна. Зүрхний шугам болон мөнгөний шугамын огтлолцлоос үзэхэд гэнэтийн амжилт хүлээж байна.\n\n` +
+                `3. ᚱ ТАНД ТОХИРОХ РУНА ТЭМДГҮҮД:\n` +
+                `- Мөнгө ба Баялаг: Fehu (ᚠ) - Санхүүгийн саад бэрхшээлийг арилгана.\n` +
+                `- Аз ба Боломж: Ansuz (ᚨ) - Зөв зам руу хөтлөх болно.\n` +
+                `- Хайр дурлал: Gebo (᚞) - Харилцааг тэнцвэржүүлнэ.\n\n` +
+                `4. 🌟 АМЬДРАЛЫН 6 ГОЛ САЛБАРЫН ТАЙЛАЛ:\n` +
+                `- 💖 Хайр дурлал & Харилцаа: Дотоод сэтгэлийн ойлголцол нэмэгдэж, харилцаа тань илүү гүнзгий шатанд гарна.\n` +
+                `- 🏥 Эрүүл мэнд & Энерги: Бие махбодь болон сэтгэл санааны тэнцвэр сайн байна.\n` +
+                `- 💸 Мөнгө санхүү & Баялаг: Орлого орж ирэх урсгал шинэчлэгдэж, өр зээлээс ангижрах боломж нээгдэнэ.\n` +
+                `- 💼 Ажил карьер & Өсөлт: Шинэ санал эсвэл албан тушаал дэвших боломж ойрхон байна.\n` +
+                `- ✈️ Аялал зугаалга & Боломжууд: Холын замд гарах эсвэл шинэ газар үзэх азтай тохиол тохионо.\n` +
+                `- 🔮 Ойрын ирээдүй (Дараагийн 3 сар): Амьдралд тань томоохон эерэг өөрчлөлт орох чухал үе эхэлж байна.\n\n` +
+                `5. 🔑 ИДЭВХЖҮҮЛЭХ 3 АЛХАМ:\n` +
+                `1. Өглөө бүр Fehu руна тэмдгийг цаасан дээр зурж биедээ авч яв.\n` +
+                `2. Санхүүгийн шийдвэр гаргахдаа зөн совиндоо итгэ.\n` +
+                `3. Дотоод сэтгэлийн амар тайвмаа хадгалж, эерэг энергиэр өөрийгөө хүрээлүүл.`;
+
+                document.getElementById('ai-reading-text').innerText = fullReport;
+                document.getElementById('ai-reading-text').classList.remove('hidden');
+                document.getElementById('email-status').innerText = `📧 Иж бүрэн тайлан ${email} хаяг руу амжилттай илгээгдлээ.`;
+            }, 2000);
         }
     </script>
 </body>

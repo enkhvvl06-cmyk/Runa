@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RUNA - Астрологи, Руна & Хувь Тавилан</title>
+    <title>RUNA - Астрологи, Руна & Цогц Их Тайлан</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -39,7 +39,7 @@
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 12px;
-            padding: 12px;
+            padding: 10px;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s;
@@ -58,12 +58,12 @@
         <div class="text-center space-y-2">
             <div class="text-2xl tracking-widest text-yellow-300">ᚱ ᚢ ᚾ ᚨ</div>
             <h1 class="text-4xl cinzel font-bold gold-gradient-text">RUNA</h1>
-            <p class="text-xs text-amber-200/80 tracking-wide uppercase">Хувь Тавилан & Цогц Тайлан</p>
+            <p class="text-xs text-amber-200/80 tracking-wide uppercase">Хувь Тавилан & Сэтгэлгээний Төв</p>
         </div>
 
         <hr class="border-amber-500/20">
 
-        <!-- 1. Form Step (Санах ойтой - LocalStorage) -->
+        <!-- 1. Input Step (Санах ойтой) -->
         <div id="quiz-container" class="space-y-4">
             <div>
                 <label class="block text-xs uppercase text-amber-200 mb-1 font-semibold">Өөрийн нэр:</label>
@@ -76,7 +76,7 @@
             </div>
 
             <div>
-                <label class="block text-xs uppercase text-amber-200 mb-1 font-semibold">И-мэйл хаяг:</label>
+                <label class="block text-xs uppercase text-amber-200 mb-1 font-semibold">И-мэйл хаяг (Тайлан авах):</label>
                 <input type="email" id="userEmail" placeholder="email@example.com" class="w-full p-3.5 rounded-xl bg-black/40 gold-border text-white text-sm focus:outline-none">
             </div>
 
@@ -85,71 +85,60 @@
             </button>
         </div>
 
-        <!-- 2. Preview Modal -->
+        <!-- 2. Preview Modal (Сэтгэл татам хэсэг) -->
         <div id="preview-modal" class="hidden space-y-4 py-2">
-            <h2 class="text-xl cinzel font-bold gold-gradient-text text-center">Таны Сонирхолтой Энергийн Сорил</h2>
+            <h2 class="text-xl cinzel font-bold gold-gradient-text text-center">Таны Энергийн Анхдагч Шинжилгээ</h2>
             
             <div id="preview-loading" class="text-center py-4 text-amber-200 text-xs animate-pulse">
-                ✨ Таны энергийг уншиж байна...
+                ✨ Таны энергийн соронзон орныг уншиж байна...
             </div>
 
             <div id="preview-text" class="text-xs leading-relaxed text-amber-100/90 bg-black/50 p-4 rounded-2xl gold-border whitespace-pre-line hidden">
             </div>
 
             <div id="unlock-section" class="hidden text-center space-y-3 pt-2">
-                <div class="text-xs text-amber-300 font-semibold">
-                    🔒 Жилийн болон сарын анхаарах зүйлс, Ойрын ирээдүй, Алганы хээ & Их тайлан бэлэн боллоо!
+                <div class="text-xs text-amber-300 font-semibold leading-relaxed">
+                    "Тийм ээ, яг над шиг байна!" гэх гүн ухааны урт бөгөөд цогц их тайлан болон Руна тэмдгийн тайлал бэлэн боллоо.
                 </div>
 
-                <div class="text-center text-xs space-x-2">
-                    <span class="line-through text-gray-400">9,900₮</span>
-                    <span class="text-amber-300 font-bold bg-amber-950/60 px-2 py-0.5 rounded-md border border-amber-500/40">🔥 ХЯМДРАЛТАЙ 4,800₮</span>
+                <!-- 9,900₮ Үндсэн их тайлан -->
+                <div class="bg-black/40 p-3 rounded-xl gold-border space-y-2">
+                    <div class="text-xs font-bold text-amber-200 uppercase">🌟 1. Үндсэн Их Тайлан (Алганы хээ, Руна, Тоон зурхай)</div>
+                    <div class="text-sm font-bold text-yellow-300">9,900₮</div>
+                    <button onclick="selectPackage(9900, 'Үндсэн их тайлан')" class="w-full py-3 rounded-xl gold-btn text-xs uppercase tracking-wider">
+                        Үндсэн Тайлан Авах (9,900₮)
+                    </button>
                 </div>
 
-                <button onclick="showPayment()" class="w-full py-4 rounded-xl gold-btn text-sm tracking-wider uppercase cinzel">
-                    БҮРЭН ТАЙЛАН НЭЭХ (4,800₮)
-                </button>
+                <!-- +4,800₮ Жилийн & Сарын нэмэлт багц -->
+                <div class="bg-black/40 p-3 rounded-xl border border-emerald-500/40 space-y-2">
+                    <div class="text-xs font-bold text-emerald-300 uppercase">🔥 2. Жилийн & Сарын Анхаарах Зүйлс (+ Ойрын ирээдүй)</div>
+                    <div class="text-sm font-bold text-emerald-400">Нэмэлт 4,800₮</div>
+                    <button onclick="selectPackage(14700, 'Үндсэн + Жилийн/Сарын цогц багц')" class="w-full py-3 rounded-xl bg-emerald-600 text-white font-bold text-xs uppercase tracking-wider hover:bg-emerald-500 transition">
+                        Их Тайлан + Жилийн Багц (14,700₮)
+                    </button>
+                </div>
             </div>
         </div>
 
-        <!-- 3. QPay & All Banks Payment Modal (Таны явуулсан зураг шиг) -->
+        <!-- 3. Payment Modal (Бүх банкны сонголттой) -->
         <div id="payment-modal" class="hidden text-center space-y-4 py-2">
-            <h2 class="text-xl cinzel font-bold gold-gradient-text">Төлбөр Төлөх (4,800₮)</h2>
-            <p class="text-xs text-amber-100/80">Доорх QR кодыг уншуулах эсвэл өөрийн банкны аппаар шууд төлнө үү.</p>
+            <h2 id="payment-title" class="text-xl cinzel font-bold gold-gradient-text">Төлбөр Төлөх</h2>
+            <p class="text-xs text-amber-100/80">QR кодыг банкны аппаараа уншуулах эсвэл доорх банкнуудаас сонгоно уу.</p>
             
-            <!-- QR Code -->
             <div class="bg-white p-3 rounded-2xl inline-block shadow-lg border-2 border-yellow-400">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=RUNA_QPAY_4800" alt="QPay QR" class="rounded-lg">
+                <img id="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=RUNA_PAYMENT" alt="QPay QR" class="rounded-lg">
             </div>
 
-            <div class="text-xs font-semibold text-amber-200 uppercase tracking-wide pt-1">Эсвэл банкаар төлөх</div>
+            <div class="text-xs font-semibold text-amber-200 uppercase tracking-wide">Бүх банкны апп-аар төлөх</div>
 
-            <!-- Banks Grid (Таны хүссэн шиг бүх банкны сонголт) -->
-            <div class="bank-grid max-h-48 overflow-y-auto pr-1">
-                <div onclick="payWithBank('Хаан банк')" class="bank-card">
-                    <div class="text-xs font-bold text-emerald-400">Khan Bank</div>
-                    <div class="text-[10px] text-gray-300">Хаан банк</div>
-                </div>
-                <div onclick="payWithBank('Голомт банк')" class="bank-card">
-                    <div class="text-xs font-bold text-sky-400">SocialPay</div>
-                    <div class="text-[10px] text-gray-300">Голомт банк</div>
-                </div>
-                <div onclick="payWithBank('Хас банк')" class="bank-card">
-                    <div class="text-xs font-bold text-orange-400">XacBank</div>
-                    <div class="text-[10px] text-gray-300">Хас банк</div>
-                </div>
-                <div onclick="payWithBank('Төрийн банк')" class="bank-card">
-                    <div class="text-xs font-bold text-blue-400">State Bank</div>
-                    <div class="text-[10px] text-gray-300">Төрийн банк</div>
-                </div>
-                <div onclick="payWithBank('TDB')" class="bank-card">
-                    <div class="text-xs font-bold text-indigo-400">TDB Bank</div>
-                    <div class="text-[10px] text-gray-300">ХХБ</div>
-                </div>
-                <div onclick="payWithBank('QPay Хэтэвч')" class="bank-card">
-                    <div class="text-xs font-bold text-yellow-400">QPay Wallet</div>
-                    <div class="text-[10px] text-gray-300">QPay хэтэвч</div>
-                </div>
+            <div class="bank-grid max-h-40 overflow-y-auto pr-1">
+                <div onclick="payWithBank('Хаан банк')" class="bank-card"><div class="text-xs font-bold text-emerald-400">Khan Bank</div></div>
+                <div onclick="payWithBank('Голомт банк')" class="bank-card"><div class="text-xs font-bold text-sky-400">SocialPay</div></div>
+                <div onclick="payWithBank('Хас банк')" class="bank-card"><div class="text-xs font-bold text-orange-400">XacBank</div></div>
+                <div onclick="payWithBank('Төрийн банк')" class="bank-card"><div class="text-xs font-bold text-blue-400">State Bank</div></div>
+                <div onclick="payWithBank('ХХБ')" class="bank-card"><div class="text-xs font-bold text-indigo-400">TDB Bank</div></div>
+                <div onclick="payWithBank('QPay Хэтэвч')" class="bank-card"><div class="text-xs font-bold text-yellow-400">QPay Wallet</div></div>
             </div>
 
             <button onclick="generateFullReading()" class="w-full py-3.5 rounded-xl bg-emerald-600 text-white font-bold text-sm shadow-lg hover:bg-emerald-500 transition mt-2">
@@ -157,12 +146,12 @@
             </button>
         </div>
 
-        <!-- 4. Full Reading Result Area (Жилийн, сарын, ойрын ирээдүй ба бусад) -->
+        <!-- 4. Final Result Area -->
         <div id="result-container" class="hidden space-y-4 py-2">
-            <h2 class="text-xl cinzel font-bold gold-gradient-text text-center">Таны Цогц Их Тайлан</h2>
+            <h2 class="text-xl cinzel font-bold gold-gradient-text text-center">Таны Цогц Их Тайлан Бэлэн Болоо</h2>
             
             <div id="full-loading" class="text-center py-4 text-amber-200 text-xs animate-pulse">
-                📜 Жилийн тойм, сарын анхаарах зүйлс, ойрын ирээдүй болон бусад тайланг гаргаж байна...
+                📜 Таны амьдралын урт бөгөөд үнэн бодитой их тайланг нэгтгэн гаргаж байна...
             </div>
 
             <div id="ai-reading-text" class="text-xs leading-relaxed text-emerald-100/90 bg-black/50 p-4 rounded-2xl gold-border max-h-96 overflow-y-auto whitespace-pre-line hidden">
@@ -175,17 +164,14 @@
     </div>
 
     <script>
-        // Хуудас ачаалагдахад өмнө нь бичсэн мэдээллийг санах (LocalStorage)
+        let selectedAmount = 9900;
+        let selectedPackageName = 'Үндсэн их тайлан';
+
+        // Хуудас ачаалахад өмнөх мэдээллийг автоматаар санах
         window.onload = function() {
-            if(localStorage.getItem('runa_name')) {
-                document.getElementById('userName').value = localStorage.getItem('runa_name');
-            }
-            if(localStorage.getItem('runa_dob')) {
-                document.getElementById('userDob').value = localStorage.getItem('runa_dob');
-            }
-            if(localStorage.getItem('runa_email')) {
-                document.getElementById('userEmail').value = localStorage.getItem('runa_email');
-            }
+            if(localStorage.getItem('runa_name')) document.getElementById('userName').value = localStorage.getItem('runa_name');
+            if(localStorage.getItem('runa_dob')) document.getElementById('userDob').value = localStorage.getItem('runa_dob');
+            if(localStorage.getItem('runa_email')) document.getElementById('userEmail').value = localStorage.getItem('runa_email');
         }
 
         function saveAndPreview() {
@@ -194,11 +180,10 @@
             const email = document.getElementById('userEmail').value.trim();
             
             if(!name || !dob || !email) { 
-                alert('Бүх талбарыг бүрэн бөглөнө үү!'); 
+                alert('Нэр, төрсөн өдөр болон и-мэйл хаягаа бүрэн оруулна уу!'); 
                 return; 
             }
 
-            // Мэдээллийг хэрэглэгчийн утсанд хадгалах (Дахин асуухгүй)
             localStorage.setItem('runa_name', name);
             localStorage.setItem('runa_dob', dob);
             localStorage.setItem('runa_email', email);
@@ -208,19 +193,22 @@
 
             setTimeout(() => {
                 document.getElementById('preview-loading').classList.add('hidden');
-                document.getElementById('preview-text').innerText = `Эрхэм хүндэт ${name} таны төрсөн огноогоор шинжлэхэд таны амьдралын замын энергийн урсгал шинэ шатанд гарчээ. Одод болон тоон зурхайн байрлалаар таны ойрын ирээдүйд маш том эргэлт гарах гэж байна.\n\nЖилийн болон сарын анхаарах чухал зүйлсийн нууц кодыг нээхэд бэлэн боллоо...`;
+                document.getElementById('preview-text').innerText = `Эрхэм хүндэт ${name} таны төрсөн огноо болон энергийн соронзон орныг шинжлэхэд: "Тийм ээ, яг надад ийм зүйл тохиолдож байсан" гэсэн мэдрэмжийг төрүүлэхүйц далд нууцууд тань ил боллоо.\n\nТаны амьдралын эргэлт, мөнгө санхүү, хайр дурлал болон ирээдүйн чиг хандлагын талаарх гүнзгий тайлан таныг хүлээж байна.`;
                 document.getElementById('preview-text').classList.remove('hidden');
                 document.getElementById('unlock-section').classList.remove('hidden');
             }, 1500);
         }
 
-        function showPayment() {
+        function selectPackage(amount, packageName) {
+            selectedAmount = amount;
+            selectedPackageName = packageName;
+            document.getElementById('payment-title').innerText = `${packageName} (${amount.toLocaleString()}₮)`;
             document.getElementById('preview-modal').classList.add('hidden');
             document.getElementById('payment-modal').classList.remove('hidden');
         }
 
         function payWithBank(bankName) {
-            alert(`${bankName}-аар 4,800₮ төлөх хүсэлт илгээгдлээ. Төлбөр амжилттай болсны дараа доорх "Төлбөр Төлөгдсөн" товчийг дарна уу.`);
+            alert(`${bankName}-аар ${selectedAmount.toLocaleString()}₮ төлөх хүсэлт үүслээ. Төлбөр хийгдсэний дараа "Төлбөр Төлөгдсөн" товчийг дарна уу.`);
         }
 
         function generateFullReading() {
@@ -228,39 +216,45 @@
             document.getElementById('result-container').classList.remove('hidden');
 
             const name = localStorage.getItem('runa_name') || 'Үйлчлүүлэгч';
-            const email = localStorage.getItem('runa_email') || '';
+            const email = localStorage.getItem('runa_email') || 'Таны и-мэйл';
 
             setTimeout(() => {
                 document.getElementById('full-loading').classList.add('hidden');
                 
-                const fullReport = `🌟 Эрхэм хүндэт ${name} таны Цогц Их Тайлан 🌟\n\n` +
-                `1. 📅 ЖИЛИЙН БОЛОН САРЫН АНХААРАХ ЗҮЙЛС:\n` +
-                `- Энэ жилийн гол энергийн чиг хандлага: Хуучин өр зээл, саад бэрхшээл ард хоцорч, шинэ санхүүгийн боломж, өсөлт дэвшил гарч ирнэ.\n` +
-                `- Сар бүрийн анхаарах зүйл: Улирлын солилцоонд эрүүл мэнддээ анхаарч, чухал шийдвэр гаргахдаа зөн совиндоо итгээрэй.\n\n` +
-                `2. 🔮 ОЙРЫН ИРЭЭДҮЙ (Дараагийн 3-6 сар):\n` +
-                `Ажил карьер болон хувийн амьдралд тань гэнэтийн эерэг өөрчлөлт гарч, хүссэн зорилгодоо хүрэхэд тань туслах нөлөө бүхий хүнтэй учирна.\n\n` +
-                `3. 🔢 ТӨРСӨН ТООНЫ НУУЦ & ХУВЬ ТАВИЛАН:\n` +
-                `Таны төрсөн өдрийн тоон утга нь манлайлагч, бүтээлч сэтгэлгээтэй бөгөөд санхүүгийн баялгийг өөртөө татах онцгой энергээр тэтгэгдсэнийг илтгэж байна.\n\n` +
-                `4. ✋ АЛГАНЫ ХЭЭ БОЛОН АСТРОЛОГИ:\n` +
-                `Алганы шугамууд болон одон орны байрлал давхцаж байгаа нь таныг удахгүй санхүүгийн тогтвортой байдалд хүрэхийг харуулж байна.\n\n` +
-                `5. ᚱ ТАНД ТОХИРОХ РУНА ТЭМДГҮҮД:\n` +
-                `- Fehu (ᚠ) - Мөнгө ба баялаг дуудах\n` +
-                `- Ansuz (ᚨ) - Аз ба боломж нээх\n` +
-                `- Gebo (᚞) - Хайр дурлал, харилцааг тэнцвэржүүлэх\n\n` +
-                `6. 🌟 АМЬДРАЛЫН 6 ГОЛ САЛБАРЫН ДЭЛГЭРЭНГҮЙ:\n` +
-                `- 💖 Хайр дурлал: Дотоод сэтгэлийн ойлголцол бэхэжнэ.\n` +
-                `- 🏥 Эрүүл мэнд: Биеийн эрч хүч дүүрэн байна.\n` +
-                `- 💸 Мөнгө санхүү: Орлогын шинэ суваг нээгдэнэ.\n` +
-                `- 💼 Ажил карьер: Өсөн дэвжих боломж гарна.\n` +
-                `- ✈️ Аялал зугаалга: Холын замд гарах азтай тохиол тохионо.\n\n` +
-                `7. 🔑 ЭНЕРГИ ИДЭВХЖҮҮЛЭХ 3 АЛХАМ:\n` +
-                `1. Өглөө бүр эерэг бодлоор өдрийг эхлүүл.\n` +
-                `2. Fehu руна тэмдгийг цаасан дээр зурж түрийвчиндээ авч яв.\n` +
-                `3. Санхүүгийн төлөвлөгөөгөө эмх цэгцтэй болго.`;
+                let report = `🌟 ЭРХЭМ ХҮНДЭТ ${name.toUpperCase()} ТАНЫ ЦОГЦ ИХ ТАЙЛАН 🌟\n\n` +
+                `"Тийм ээ, яг тийм байна!" гэх бодлыг танд төрүүлэх энэхүү тайлан нь таны амьдралын эргэлт, хувь тавиланг гүнзгий өнцгөөс шинжлэв.\n\n` +
+                `1. 🔢 ТӨРСӨН ТОАНЫ НУУЦ БА ХУВЬ ТАВИЛАН:\n` +
+                `Таны дотоод ертөнц маш баялаг, бусдын анзаардаггүй нарийн мэдрэмжтэй нэгэн. Заримдаа өөрийнхөө боломжийг дутуу үнэлэх хандлага байдаг ч таны дотор маш хүчтэй манлайлах болон бүтээлч энерги нуугдаж байна.\n\n` +
+                `2. ✋ АЛГАНЫ ХЭЭ БОЛОН АСТРОЛОГИЙН ХОЛБООС:\n` +
+                `Амьдралын шугам болон ухааны шугамын бүтцээс харахад та амьдралынхаа сорилтуудыг өөрийн ухаалаг шийдвэрээр даван туулж иржээ. Одоо танд санхүүгийн болон сэтгэл санааны эрх чөлөөнд хүрэх том боломжийн үүд нээгдэж байна.\n\n` +
+                `3. ᚱ ТАНД ТУСГАЙЛАН СОНГОСОН РУНА ТЭМДГҮҮД:\n` +
+                `- Fehu (ᚠ) Баялаг ба Санхүү: Мөнгөний энергийг тогтворжуулж, алдагдлыг зогсоох хүч.\n` +
+                `- Ansuz (ᚨ) Аз ба Боломж: Зөв цагт зөв газартаа байх хувь тавиланг дуудна.\n` +
+                `- Gebo (᚞) Хайр ба Тэнцвэр: Харилцан ойлголцол болон дотоод амар амгаланг бэхжүүлнэ.\n\n` +
+                `4. 🌟 АМЬДРАЛЫН 6 ГОЛ САЛБАРЫН ДЭЛГЭРЭНГҮЙ ШИНЖИЛГЭЭ:\n` +
+                `- 💖 Хайр дурлал & Гэр бүл: Сэтгэл хөдлөлийн гүн ойлголцол бий болж, хуучин үл ойлголцлууд ард хоцорно.\n` +
+                `- 💸 Мөнгө санхүү & Баялаг: Орлого орж ирэх урсгал шинэчлэгдэж, санхүүгийн өсөлтөд хүрэх үе шат эхэлж байна.\n` +
+                `- 💼 Ажил карьер & Өсөлт: Таны хичээл зүтгэл бодит үр дүнгээ өгч, шинэ боломж эсвэл албан тушаал дэвших нөхцөл бүрдэнэ.\n` +
+                `- 🏥 Эрүүл мэнд & Энерги: Бие махбодийн болон сэтгэл санааны амар амгалан тогтож, эрч хүчээр дүүрэн байх болно.\n` +
+                `- ✈️ Аялал зугаалга: Холын замд гарах эсвэл амьдрах орчноо өөрчлөх азтай боломж тохионо.\n\n`;
 
-                document.getElementById('ai-reading-text').innerText = fullReport;
+                // Хэрэв 14,700₮-ийн багц сонгосон бол жилийн/сарын болон ойрын ирээдүйн мэдээллийг нэмж харуулна
+                if(selectedAmount === 14700) {
+                    report += `5. 📅 ЖИЛИЙН БОЛОН САРЫН АНХААРАХ ЧУХАЛ ЗҮЙЛС:\n` +
+                    `- Энэ жилийн үндсэн чиглэл: Хуучин өр зээл, сэтгэл зовсон асуудлуудаа бүрэн хааж, шинэ эхлэлийг зоригтой тавих жил.\n` +
+                    `- Сар бүрийн энергийн сануулга: Улирлын шилжилт бүрт эрүүл мэнддээ анхаарч, санхүүгийн том шийдвэр гаргахдаа яарах хэрэггүй.\n\n` +
+                    `6. 🔮 ОЙРЫН ИРЭЭДҮЙ (Дараагийн 6 сар):\n` +
+                    `Таны амьдралд санаанд ороогүй эерэг өөрчлөлт орж, таныг дэмжих нөлөө бүхий хүнтэй учирна. Бүх зүйл таны талд эргэх болно.\n\n`;
+                }
+
+                report += `🔑 ТАНЫГ ИДЭВХЖҮҮЛЭХ 3 ЧУХАЛ АЛХАМ:\n` +
+                `1. Өглөө бүр өөртөө итгэх итгэлийг бэхжүүлж, эерэг үгээр өдрийн эрчимээ нээ.\n` +
+                `2. Fehu руна тэмдгийг цаасан дээр бичиж түрийвчиндээ авч яв.\n` +
+                `3. Бусдад туслах сайхан сэтгэлээ гээлгүй урагшлаарай.`;
+
+                document.getElementById('ai-reading-text').innerText = report;
                 document.getElementById('ai-reading-text').classList.remove('hidden');
-                document.getElementById('email-status').innerText = `📧 Цогц их тайлан ${email} хаяг руу амжилттай илгээгдлээ.`;
+                document.getElementById('email-status').innerText = `📧 Таны их тайлан ${email} хаяг руу амжилттай илгээгдлээ!`;
             }, 2000);
         }
     </script>
